@@ -1,4 +1,4 @@
-package com.wiseowl.masterji.core.ui.components.button
+package com.wiseowl.masterji.core.ui.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
