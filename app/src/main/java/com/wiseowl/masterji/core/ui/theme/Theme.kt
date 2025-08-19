@@ -1,4 +1,5 @@
-package com.wiseowl.masterji.ui.theme
+package com.wiseowl.masterji.core.ui.theme
+
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.lightColorScheme

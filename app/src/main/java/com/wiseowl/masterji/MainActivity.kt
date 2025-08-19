@@ -16,7 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
-import com.wiseowl.masterji.ui.theme.MasterJiTheme
+import com.wiseowl.masterji.core.ui.theme.MasterJiTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
