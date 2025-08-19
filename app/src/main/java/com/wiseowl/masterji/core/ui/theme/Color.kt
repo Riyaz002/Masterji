@@ -1,4 +1,4 @@
-package com.wiseowl.masterji.ui.theme
+package com.wiseowl.masterji.core.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

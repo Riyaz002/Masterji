@@ -1,4 +1,4 @@
-package com.wiseowl.masterji.ui.theme
+package com.wiseowl.masterji.core.ui.theme
 
 import android.app.Activity
 import android.os.Build
