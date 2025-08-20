@@ -10,15 +10,13 @@ abstract class Logic(
 }
 
 sealed class SortLogic(
-    val list: List<Int>,
+    list: List<Int>,
 ): Logic(){
 
     protected val mList = list.toMutableList()
-    protected var i: Int = 0
-    protected var j: Int = 0
     protected var mListener: SortLogicListener? = null
 
-    fun getList(): List<Int> = mList
+    fun getUpdatedList(): List<Int> = mList
 
     fun setListener(listener: SortLogicListener){ mListener = listener }
 
@@ -31,6 +29,8 @@ sealed class SortLogic(
     class BubbleSort(
         list: List<Int>,
     ): SortLogic(list){
+        protected var i: Int = 0
+        protected var j: Int = 0
         override fun next(){
             val n = mList.size
             if(i < n - 1) {

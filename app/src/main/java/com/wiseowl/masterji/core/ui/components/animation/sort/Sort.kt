@@ -38,14 +38,14 @@ fun BubbleSort(
             currentInput = input, onInputChanged = { input = it }
         ) }
     ) {
-        Sort(SortLogic.BubbleSort(input))
+        BubbleSort(SortLogic.BubbleSort(input))
     }
 }
 
 
 
 @Composable
-fun Sort(
+fun BubbleSort(
     program: SortLogic
 ) {
 

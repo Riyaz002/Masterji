@@ -18,6 +18,6 @@ fun InputEditor(
         onValueChange = {
             val newInput = it.split(",").map { it.trim().toInt() }
             onInputChanged(newInput)
-        },
+        }
     )
 }
