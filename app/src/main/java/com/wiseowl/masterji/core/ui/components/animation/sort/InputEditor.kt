@@ -1,5 +1,7 @@
 package com.wiseowl.masterji.core.ui.components.animation.sort
 
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
@@ -9,5 +11,13 @@ fun InputEditor(
     currentInput: List<Int>,
     onInputChanged: (List<Int>) -> Unit
 ) {
-    //Show input editor
+
+    TextField(
+        modifier = modifier,
+        value = currentInput.toString(),
+        onValueChange = {
+            val newInput = it.split(",").map { it.trim().toInt() }
+            onInputChanged(newInput)
+        },
+    )
 }

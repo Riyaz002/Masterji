@@ -1,5 +1,7 @@
 package com.wiseowl.masterji.core.domain
 
+import com.wiseowl.masterji.core.domain.algorithm.AnimationType
+
 // Top-level Lesson
 data class Lesson(
     val blocks: List<LessonBlock>

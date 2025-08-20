@@ -10,6 +10,6 @@ import androidx.compose.ui.graphics.Color
 fun Bar(modifier: Modifier) {
     Box(
         modifier = modifier
-            .background(Color.White)
+            .background(Color.White),
     )
 }

@@ -1,4 +1,4 @@
-package com.wiseowl.masterji.core.domain
+package com.wiseowl.masterji.core.domain.algorithm
 
 interface AnimationType
 
