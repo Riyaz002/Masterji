@@ -11,6 +11,6 @@ sealed class LessonBlock {
     data class Paragraph(val text: String) : LessonBlock()
     data class CodeSnippet(val language: String, val code: String) : LessonBlock()
     data class Image(val url: String, val description: String? = null) : LessonBlock()
-    data class Animation(val type: AnimationType = Sort.BubbleSort) : LessonBlock()
+    data class Animation(val type: AnimationType) : LessonBlock()
     data class Quiz(val question: String, val options: List<String>, val answerIndex: Int) : LessonBlock()
 }
