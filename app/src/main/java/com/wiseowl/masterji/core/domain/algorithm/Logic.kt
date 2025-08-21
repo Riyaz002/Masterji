@@ -1,55 +1,60 @@
 package com.wiseowl.masterji.core.domain.algorithm
 
 
+abstract class Logic{
 
-abstract class Logic(
-    open val onStepComplete: (stepNumber: Int) -> Unit = { _ -> },
-){
+    private var mFinished: Boolean = false
+    fun isFinished(): Boolean = mFinished
+    protected fun onFinished(){ mFinished = true }
+
     protected var stepNumber: Int = 0
+    private var mStepListener: ((stepNumber: Int) -> Unit)? = null
+    fun setOnStepListener(listener: (stepNumber: Int) -> Unit){ mStepListener = listener }
+    protected fun onStep(){ mStepListener?.invoke(stepNumber++) }
+
     abstract fun next()
 }
 
 sealed class SortLogic(
     list: List<Int>,
 ): Logic(){
-
     protected val mList = list.toMutableList()
-    protected var mListener: SortLogicListener? = null
 
     fun getUpdatedList(): List<Int> = mList
-
-    fun setListener(listener: SortLogicListener){ mListener = listener }
-
-    interface SortLogicListener{
-        fun onStepComplete(stepNumber: Int) = Unit
-        fun onSwap(i: Int, j: Int) = Unit
-        fun onProgramFinish() = Unit
-    }
 
     class BubbleSort(
         list: List<Int>,
     ): SortLogic(list){
-        protected var i: Int = 0
-        protected var j: Int = 0
+        private var _i: Int = 0
+        val i: Int get() = _i
+        private var _j: Int = 0
+        val j: Int get() = _j
+        private var mSwapListener: ((i: Int, j: Int) -> Unit)? = null
+
+
+        fun setOnSwapListener(listener: (i: Int, j: Int) -> Unit){
+            mSwapListener = listener
+        }
+
         override fun next(){
-            val n = mList.size
-            if(i < n - 1) {
-                if (j < n - 1) {
-                    if (mList[j] > mList[j + 1]) {
-                        // Swap elements
-                        val temp = mList[j]
-                        mList[j] = mList[j + 1]
-                        mList[j + 1] = temp
-                        mListener?.onSwap(j, j + 1)
+            if(!isFinished()){
+                val n = mList.size
+                if(i < n - 1) {
+                    if (j < n - 1) {
+                        if (mList[j] > mList[j + 1]) {
+                            // Swap elements
+                            val temp = mList[j]
+                            mList[j] = mList[j + 1]
+                            mList[j + 1] = temp
+                            mSwapListener?.invoke(j, j + 1)
+                        }
+                        _j++
+                    } else{
+                        _j=0
+                        _i++
                     }
-                    mListener?.onStepComplete(stepNumber++)
-                    j++
-                } else{
-                    j=0
-                    i++
-                }
-            }else{
-                mListener?.onProgramFinish()
+                    onStep()
+                } else onFinished()
             }
         }
     }
