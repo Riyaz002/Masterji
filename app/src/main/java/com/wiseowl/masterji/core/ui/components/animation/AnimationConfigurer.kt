@@ -11,7 +11,7 @@ fun AnimationConfigurationInput(
     onConfigurationChange: (AnimationConfiguration) -> Unit
 ) {
     Row{
-        //Show animation to chnage
+        //Show animation to change
         //Enable/Disable animation
     }
 }
