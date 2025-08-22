@@ -1,4 +1,4 @@
-package com.wiseowl.masterji.core.domain.algorithm
+package com.wiseowl.masterji.core.domain.algorithms
 
 
 abstract class Logic{

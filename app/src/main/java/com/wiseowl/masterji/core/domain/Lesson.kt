@@ -1,6 +1,6 @@
 package com.wiseowl.masterji.core.domain
 
-import com.wiseowl.masterji.core.domain.algorithm.AnimationType
+import com.wiseowl.masterji.core.domain.algorithms.AnimationType
 
 // Top-level Lesson
 data class Lesson(

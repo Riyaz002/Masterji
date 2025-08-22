@@ -25,7 +25,7 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.wiseowl.masterji.core.domain.algorithm.SortLogic
+import com.wiseowl.masterji.core.domain.algorithms.SortLogic
 import com.wiseowl.masterji.core.ui.components.animation.AnimationBlock
 import kotlinx.coroutines.delay
 
