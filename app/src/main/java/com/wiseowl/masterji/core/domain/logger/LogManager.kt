@@ -2,7 +2,7 @@ package com.wiseowl.masterji.core.domain.logger
 
 import kotlin.reflect.KClass
 
-class LogManager: Logger {
+object LogManager: Logger {
     private var loggers = hashMapOf<KClass<out Logger> ,Logger>()
 
     fun add(logger: Logger): LogManager{
@@ -29,6 +29,4 @@ class LogManager: Logger {
     override fun e(tag: String, message: String, throwable: Throwable?) {
         loggers.forEach { e(tag, message, throwable) }
     }
-
-
 }

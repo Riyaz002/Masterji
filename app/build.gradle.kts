@@ -28,7 +28,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        resValue("string", "google_api_key", "\"${secretsProperties.getProperty("GOOGLE_API_KEY")}\"")
+        resValue("string", "google_service_api_key", "\"${secretsProperties.getProperty("GOOGLE_API_KEY")}\"")
     }
 
     buildTypes {
@@ -71,7 +71,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     //Firebase
-    implementation(libs.firebase.bom)
+    implementation(platform(libs.firebase.bom))
     // Add the dependencies for the Crashlytics NDK and Analytics libraries
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation(libs.firebase.crashlytics)
