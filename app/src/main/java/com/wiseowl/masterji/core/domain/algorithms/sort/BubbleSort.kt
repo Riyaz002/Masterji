@@ -8,8 +8,19 @@ class BubbleSort(
     private var _j: Int = 0
     val j: Int get() = _j
     private var mSwapListener: ((i: Int, j: Int) -> Unit)? = null
+    private var mCompareListener: ((i: Int, j: Int) -> Unit)? = null
+    private var mMoveListener: ((i: Int, j: Int) -> Unit)? = null
 
     fun setOnSwapListener(listener: (i: Int, j: Int) -> Unit){
+        mSwapListener = listener
+    }
+
+
+    fun setOnCompareListener(listener: (i: Int, j: Int) -> Unit){
+        mSwapListener = listener
+    }
+
+    fun setOnNewIndexListener(listener: (i: Int, j: Int) -> Unit){
         mSwapListener = listener
     }
 
@@ -18,6 +29,7 @@ class BubbleSort(
             val n = mList.size
             if(i < n - 1) {
                 if (j < n - 1) {
+                    mCompareListener?.invoke(j, j + 1)
                     if (mList[j] > mList[j + 1]) {
                         // Swap elements
                         val temp = mList[j]
@@ -30,6 +42,7 @@ class BubbleSort(
                     _j=0
                     _i++
                 }
+                mMoveListener?.invoke(i, j)
                 onStep()
             } else onFinished()
         }

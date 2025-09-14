@@ -2,7 +2,10 @@ package com.wiseowl.masterji.core.ui.components.animation.sort
 
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.width
@@ -24,6 +27,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.wiseowl.masterji.core.domain.algorithms.sort.BubbleSort
@@ -63,6 +67,7 @@ fun BubbleSort(
         mutableStateOf(List(program.getUpdatedList().size) { it.toString() })
     }
     var input by remember { mutableStateOf(program.getUpdatedList()) }
+    val highlightedBars = remember { mutableStateOf<Pair<Pair<Int, String>, Pair<Int, String>>?>(null) }
 
     LaunchedEffect(program) {
         program.setOnSwapListener { i, j ->
@@ -71,12 +76,31 @@ fun BubbleSort(
             newKeys[i] = newKeys[j]
             newKeys[j] = temp
             keys = newKeys
-            keys = newKeys
+            highlightedBars.value = Pair(Pair(i, "Swap"), Pair(j, "Swap"))
         }
-        while(!program.isFinished()) {
+        program.setOnCompareListener { i, j ->
+            val newKeys = keys.toMutableList()
+            val temp = newKeys[i]
+            newKeys[i] = newKeys[j]
+            newKeys[j] = temp
+            keys = newKeys
+            keys = newKeys
+            highlightedBars.value = Pair(Pair(i, "Compare"), Pair(j, "Compare"))
+        }
+        program.setOnNewIndexListener { i, j ->
+            val newKeys = keys.toMutableList()
+            val temp = newKeys[i]
+            newKeys[i] = newKeys[j]
+            newKeys[j] = temp
+            keys = newKeys
+            keys = newKeys
+            highlightedBars.value = Pair(Pair(i, "Pointer"), Pair(j, "Pointer"))
+        }
+        while (!program.isFinished()) {
             program.next()
             delay(200)
         }
+        highlightedBars.value = null
     }
 
     program.next()
@@ -95,31 +119,34 @@ fun BubbleSort(
             },
         verticalAlignment = Alignment.Bottom
     ) {
-        itemsIndexed(items = input, key = {index, _ -> keys[index] }){ index, it ->
-
+        itemsIndexed(items = input, key = { index, _ -> keys[index] }) { index, it ->
+            Column {
+                if(highlightedBars.value?.first?.first == index){
+                    highlightedBars.value?.first?.second?.let {
+                        Text(modifier = Modifier.align(Alignment.CenterHorizontally), text = it, fontWeight = FontWeight.Bold, color = Color.White)
+                    }
+                    Box(Modifier.width(1.dp).height(20.dp).background(Color.White).align(Alignment.CenterHorizontally))
+                }
+                if(highlightedBars.value?.second?.first == index){
+                    highlightedBars.value?.second?.second?.let {
+                        Text(modifier = Modifier.align(Alignment.CenterHorizontally), text = it, fontWeight = FontWeight.Bold, color = Color.White)
+                    }
+                    Box(Modifier.width(1.dp).height(20.dp).background(Color.White).align(Alignment.CenterHorizontally))
+                }
                 Bar(
                     Modifier
                         .requiredHeight(it.dp)
                         .width(width.value)
-                        .padding(horizontal = 1.dp)
-                        .padding(top = 2.dp)
+                        .padding(top = 2.dp, start = 1.dp, end = 1.dp)
+                        .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
+                        .background(Color.White)
                         .animateItem(
-                           fadeInSpec = tween(3000),   // control enter animation
+                            fadeInSpec = tween(3000),   // control enter animation
                             fadeOutSpec = tween(3000),  // control exit animation
                         )
-                    .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
-                ){
-                    if(keys[index] == program.i.toString() || keys[index] == program.j.toString()){
-                        if(keys[index] == program.i.toString()) Text(
-                            "i",
-                            color = Color.Black, style = MaterialTheme.typography.titleLarge
-                        )
-                        if(keys[index] == program.j.toString()) Text(
-                            "j",
-                            color = Color.Black, style = MaterialTheme.typography.titleLarge
-                        )
-                    }
-                }
+                )
+
+            }
         }
     }
 }

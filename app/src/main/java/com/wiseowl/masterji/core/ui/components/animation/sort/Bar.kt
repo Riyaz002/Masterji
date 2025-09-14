@@ -13,8 +13,7 @@ fun Bar(
     indicator: @Composable () -> Unit = {}
 ) {
         Box(
-            modifier = modifier
-                .background(Color.White),
+            modifier = modifier,
             contentAlignment = Alignment.Center
         ){
             indicator()
